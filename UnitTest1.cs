@@ -282,5 +282,32 @@ namespace UnitTestFileSystem
             File cd = dir.cd("Dir");
             Assert.AreEqual(true, cd.getRoot().isRoot);
         }
+
+        [TestMethod]
+        public void tNameTrue()
+        {
+            courrant.chmod(7);
+            Assert.AreEqual("root",courrant.name );
+        }
+        [TestMethod]
+        public void tNameFalsePerm()
+        {
+            courrant.chmod(7);
+            Assert.AreNotEqual("#", courrant.name);
+        }
+        [TestMethod]
+        public void tGetFileTrue()
+        {
+            courrant.chmod(7);
+            File test = new File((Directory)courrant, "test");
+            Assert.AreEqual(true, test.getFile());
+        }
+        [TestMethod]
+        public void tGetFileFalse()
+        {
+            courrant.chmod(7);
+            Directory dir = (Directory)courrant;
+            Assert.AreNotEqual(true,dir.getFile());
+        }
     }
 }
