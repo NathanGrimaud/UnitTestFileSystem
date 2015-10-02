@@ -47,8 +47,17 @@ namespace UnitTestFileSystem
         {
             courrant.chmod(7);
             Directory dir = (Directory)courrant;
-            dir.mkdir("next");            
-            Assert.AreEqual(true, dir.rename("next","dir"));
+            dir.mkdir("next");
+            Assert.AreEqual(true, dir.rename("next", "dir"));
+        }
+        
+        [TestMethod]
+        public void tRenameFileTrue()
+        {
+            courrant.chmod(7);
+            Directory dir = (Directory)courrant;
+            dir.create("next");            
+            Assert.AreEqual(true, dir.rename("next","File"));
         }
         [TestMethod]
         public void tRenameDirFalseNom()
@@ -65,6 +74,14 @@ namespace UnitTestFileSystem
             Directory dir = (Directory)courrant;
             dir.mkdir("next");
             Assert.AreEqual(false, dir.rename("next", "dir"));
+        }
+        [TestMethod]
+        public void tRenameFileFalseNom()
+        {
+            courrant.chmod(7);
+            Directory dir = (Directory)courrant;
+            dir.create("next");
+            Assert.AreEqual(false, dir.rename("directory", "dir"));
         }
        [TestMethod]
         public void chmod7True()
@@ -128,8 +145,7 @@ namespace UnitTestFileSystem
             List<File> f = new List<File>();
             File file = dir.search("next", f)[0];
             courrant.chmod(0);
-            Assert.AreNotEqual(f, dir.cd("next"));            
-
+            Assert.AreNotEqual(f, dir.cd("next"));         
         }
        [TestMethod]
         public void tMkdirTrue()
@@ -256,6 +272,7 @@ namespace UnitTestFileSystem
             File cd = dir.cd("Dir");
             Assert.AreEqual(dir, cd.getParent());
         }
+
         [TestMethod]
         public void tGetRootTrue()
         {
